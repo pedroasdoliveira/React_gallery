@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Exo:400,700");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Exo", sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+  background: linear-gradient(125deg, #001aff 30%, #4018d2 50%, #010024 75%);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #42404a;
+  border-radius: 30px;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  background: #001aff;
+  background: linear-gradient(45deg, #001aff 30%, #4018d2 50%, #010024 75%);
+  background-size: 250% 100%;
+  overflow: auto;
+  cursor: default;
+}
