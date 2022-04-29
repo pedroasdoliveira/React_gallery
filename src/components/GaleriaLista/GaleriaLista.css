@@ -1,0 +1,18 @@
+.GaleriaLista {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px 70px;
+}
+
+@media (max-width: 1250px) {
+    .GaleriaLista {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 840px) {
+    .GaleriaLista {
+        grid-template-columns: 1fr;
+    }
+}
+

@@ -1,0 +1,19 @@
+.Home {
+  background: transparent;
+  min-height: calc(100% - 80px);
+  padding-top: 0.6rem;
+  color: #42404a;
+  position: relative;
+}
+
+.Home .Home__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 350px) {
+  .Home .Home__container {
+    justify-content: unset;
+  }
+}
