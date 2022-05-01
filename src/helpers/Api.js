@@ -8,6 +8,6 @@ const GaleriaContext = {
 };
 
 export const Api = {
-    baseUrl: "https://apigaleriaimages-blue.onrender.com/",
+    baseUrl: "http://localhost:3005",
     ...GaleriaContext
 };

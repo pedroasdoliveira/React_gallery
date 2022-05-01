@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import { galerias } from "../../mocks/Galeria.js";
+import React, { useState, useEffect } from "react";
 import "./GaleriaLista.css";
 import GaleriaListaItem from "../GaleriaListaItem/GaleriaListaItem.jsx";
+import { GaleriaService } from "services/GaleriaService.js";
 
 const GaleriaLista = () => {
+  const [galerias, setGalerias] = useState([]);
+
   const [galeriaSelecionada, setGaleriaSelecionada] = useState({});
 
   const adicionarItem = (galeriaIndex) => {
@@ -19,6 +21,16 @@ const GaleriaLista = () => {
       };
       setGaleriaSelecionada({...galeriaSelecionada, ...galeria});
   }
+
+  const getLista = async () => {
+    const response = await GaleriaService.getLista();
+
+    setGalerias(response);
+  }
+
+  useEffect(() => {
+    getLista();
+  }, []);
 
   return (
     <div className="GaleriaLista">
