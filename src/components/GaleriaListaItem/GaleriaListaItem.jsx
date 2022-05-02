@@ -1,6 +1,6 @@
 import './GaleriaListaItem.css'
 
-const GaleriaListaItem = ({galeria, quantidadeSelecionada, index, onRemove, onAdd}) => {
+const GaleriaListaItem = ({galeria, quantidadeSelecionada, index, onRemove, onAdd, clickItem}) => {
   const badgeCounter = (canRender, index) => {
     return (
       Boolean(canRender) && (
@@ -14,7 +14,7 @@ const GaleriaListaItem = ({galeria, quantidadeSelecionada, index, onRemove, onAd
   const removeButton = (canRender, index) => {
     return (
       Boolean(canRender) && (
-        <button className="delete btn" onClick={() => onRemove(index)}>
+        <button className="delete btn" onClick={(e) => {e.stopPropagation(); onRemove(index);}}>
           Remover
         </button>
       )
@@ -22,7 +22,7 @@ const GaleriaListaItem = ({galeria, quantidadeSelecionada, index, onRemove, onAd
   };
 
   return (
-    <div className="GaleriaListaItem">
+    <div className="GaleriaListaItem" onClick={() => clickItem(galeria.id)}>
       {badgeCounter(quantidadeSelecionada, index)}
       <div>
         <div className="GaleriaListaItem__titulo">{galeria.titulo}</div>
@@ -39,7 +39,7 @@ const GaleriaListaItem = ({galeria, quantidadeSelecionada, index, onRemove, onAd
             className={`edit btn ${
               !quantidadeSelecionada && `btn--preencher`
             }`}
-            onClick={() => onAdd(index)}
+            onClick={(e) => {e.stopPropagation(); onAdd(index);}}
           >
             Adicionar
           </button>
