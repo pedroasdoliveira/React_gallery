@@ -1,11 +1,11 @@
-import './Overlay.css';
+import "./Overlay.css";
 
-const Overlay = ({children, overlayClick}) => {
+const Overlay = ({ children, overlayClick }) => {
   return (
-    <div className='Overlay' onClick={() => overlayClick()}>
-        {children}
+    <div className="Overlay" onClick={() => overlayClick()}>
+      {children}
     </div>
-  )
-}
+  );
+};
 
-export default Overlay
+export default Overlay;

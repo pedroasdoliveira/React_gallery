@@ -54,7 +54,12 @@ const GaleriaLista = () => {
           clickItem={(galeriaId) => getItem(galeriaId)}
         />
       ))}
-      {galeriaModal && <GaleriaDetalhesModal galeria={galeriaModal} closeModal={() => setGaleriaModal(false)} />} 
+      {galeriaModal && (
+        <GaleriaDetalhesModal
+          galeria={galeriaModal}
+          closeModal={() => setGaleriaModal(false)}
+        />
+      )}
     </div>
   );
 };
