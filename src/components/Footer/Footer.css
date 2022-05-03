@@ -1,0 +1,21 @@
+.Footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.Footer .Footer__description {
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+    font-style: oblique;
+    width: 100%;
+}
+
+.Footer .Footer__link a {
+    text-decoration: none;
+    font-size: 1.6rem;
+    margin: 1rem;
+    color: #010024;
+}

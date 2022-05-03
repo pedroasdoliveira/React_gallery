@@ -18,3 +18,11 @@
     justify-content: unset;
   }
 }
+
+.Home__footer {
+  width: 100%;
+  padding: 2rem;
+  margin-top: 2rem;
+  background-color: transparent;
+  color: #010024;
+}
