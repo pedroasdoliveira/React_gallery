@@ -9,10 +9,10 @@ const Footer = () => {
             <p>Dev: Pedro Oliveira</p>
         </div>
         <div className='Footer__link'>
-            <a href="https://github.com/pedroasdoliveira/React_gallery" target="_blank">
+            <a href="https://github.com/pedroasdoliveira/React_gallery">
                 <FaGithub />
             </a>
-            <a href="https://www.linkedin.com/in/pedro-augusto-silva-de-oliveira/" target="_blank">
+            <a href="https://www.linkedin.com/in/pedro-augusto-silva-de-oliveira/">
                 <SiLinkedin />
             </a>
         </div>
