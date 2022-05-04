@@ -30,6 +30,14 @@
   align-items: center;
 }
 
+.Header__row .Create {
+  display: flex;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
 .Header__row .Images {
   position: relative;
   left: 20rem;

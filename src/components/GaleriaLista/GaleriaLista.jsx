@@ -4,7 +4,7 @@ import GaleriaListaItem from "../GaleriaListaItem/GaleriaListaItem.jsx";
 import { GaleriaService } from "services/GaleriaService.js";
 import GaleriaDetalhesModal from "components/GaleriaDetalhesModal/GaleriaDetalhesModal";
 
-const GaleriaLista = () => {
+const GaleriaLista = ({ galeriaCriada }) => {
   const [galerias, setGalerias] = useState([]);
 
   const [galeriaSelecionada, setGaleriaSelecionada] = useState({});
@@ -40,6 +40,16 @@ const GaleriaLista = () => {
   useEffect(() => {
     getLista();
   }, []);
+
+  //-------------------------------------- Adicionar galeria ---------------------------------
+  const addGaleriaNaLista = (galeria) => {
+    const lista = [...galerias, galeria];
+    setGaleriaModal(lista);
+  };
+
+  useEffect(() => {
+    if (galeriaCriada) addGaleriaNaLista(galeriaCriada);
+  }, [galeriaCriada]);
 
   return (
     <div className="GaleriaLista">
