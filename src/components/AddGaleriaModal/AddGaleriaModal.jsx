@@ -4,13 +4,19 @@ import "./AddGaleriaModal.css";
 import { GaleriaService } from "services/GaleriaService.js";
 import { ActionMode } from "constants/index.js";
 
-const AddGaleriaModal = ({ closeModal, onCreateGaleria, mode, onUpdateGaleria, galeriaToUpdate }) => {
+const AddGaleriaModal = ({
+  closeModal,
+  onCreateGaleria,
+  mode,
+  onUpdateGaleria,
+  galeriaToUpdate,
+}) => {
   const form = {
-    titulo: galeriaToUpdate?.titulo ?? '',
-    tema: galeriaToUpdate?.tema ?? '',
-    imagem: galeriaToUpdate?.imagem ?? '',
-    ano: galeriaToUpdate?.ano ?? '',
-    descricao: galeriaToUpdate?.descricao ?? '',
+    titulo: galeriaToUpdate?.titulo ?? "",
+    tema: galeriaToUpdate?.tema ?? "",
+    imagem: galeriaToUpdate?.imagem ?? "",
+    ano: galeriaToUpdate?.ano ?? "",
+    descricao: galeriaToUpdate?.descricao ?? "",
   };
 
   const [state, setState] = useState(form);
@@ -43,7 +49,7 @@ const AddGaleriaModal = ({ closeModal, onCreateGaleria, mode, onUpdateGaleria, g
     const { titulo, tema, imagem, ano, descricao } = state;
 
     const galeria = {
-      ...(galeriaToUpdate && {_id: galeriaToUpdate?.id}),
+      ...(galeriaToUpdate && { _id: galeriaToUpdate?.id }),
       titulo: titulo,
       tema,
       ano,
@@ -53,28 +59,29 @@ const AddGaleriaModal = ({ closeModal, onCreateGaleria, mode, onUpdateGaleria, g
 
     const serviceCall = {
       [ActionMode.NORMAL]: () => GaleriaService.create(galeria),
-      [ActionMode.ATUALIZAR]: () => GaleriaService.updateById(galeriaToUpdate?.id, galeria),
-    }
+      [ActionMode.ATUALIZAR]: () =>
+        GaleriaService.updateById(galeriaToUpdate?.id, galeria),
+    };
 
     const response = await serviceCall[mode]();
 
     const actionResponse = {
       [ActionMode.NORMAL]: () => onCreateGaleria(response),
       [ActionMode.ATUALIZAR]: () => onUpdateGaleria(response),
-    }
+    };
 
     actionResponse[mode]();
 
     const reset = {
-      titulo: '',
-      tema: '',
-      imagem: '',
-      ano: '',
-      descricao: '',
-    }
+      titulo: "",
+      tema: "",
+      imagem: "",
+      ano: "",
+      descricao: "",
+    };
 
     setState(reset);
-    
+
     closeModal();
     window.location.reload();
   };
@@ -84,7 +91,11 @@ const AddGaleriaModal = ({ closeModal, onCreateGaleria, mode, onUpdateGaleria, g
       <Modal closeModal={closeModal}>
         <div className="AddGaleriaModal">
           <form autoComplete="off">
-            <h2>{ActionMode.ATUALIZAR === mode ? 'Atualizar Card' : 'Adicionar Card'}</h2>
+            <h2>
+              {ActionMode.ATUALIZAR === mode
+                ? "Atualizar Card"
+                : "Adicionar Card"}
+            </h2>
             <div>
               <label className="AddGaleriaModal__text" htmlFor="titulo">
                 Titulo:
@@ -159,7 +170,7 @@ const AddGaleriaModal = ({ closeModal, onCreateGaleria, mode, onUpdateGaleria, g
               type="button"
               onClick={handleSend}
             >
-              {ActionMode.NORMAL === mode ? 'Enviar' : 'Atualizar'}
+              {ActionMode.NORMAL === mode ? "Enviar" : "Atualizar"}
             </button>
           </form>
         </div>

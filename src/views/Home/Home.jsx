@@ -21,21 +21,24 @@ const Home = () => {
   const [galeriaEditar, setGaleriaEditar] = useState();
   const [galeriaDeletar, setGaleriaDeletar] = useState();
 
+  const [galeriaEditada, setGaleriaEditada] = useState();
+
   const handleUpdateGaleria = (galeriaToUpdate) => {
     setGaleriaEditar(galeriaToUpdate);
     setCanShowAddGaleriaModal(true);
-  }
+  };
 
   const handleDeleteGaleria = (galeriaToDelete) => {
     setGaleriaDeletar(galeriaToDelete);
-  }
+  };
 
   const handleCloseModal = () => {
     setCanShowAddGaleriaModal(false);
     setGaleryForAdd();
     setGaleriaEditar();
     setGaleriaDeletar();
-  }
+    setModoAtual(ActionMode.NORMAL);
+  };
 
   return (
     <div className="Home">
@@ -46,19 +49,20 @@ const Home = () => {
       />
       {/* Navbar */}
       <div className="Home__container">
-        <GaleriaLista 
-        mode={modoAtual}
-        galeriaCriada={galeryForAdd}
-        updateCard={handleUpdateGaleria}
-        deleteCard={handleDeleteGaleria}
+        <GaleriaLista
+          mode={modoAtual}
+          galeriaCriada={galeryForAdd}
+          galeriaEditada={galeriaEditada}
+          updateCard={handleUpdateGaleria}
+          deleteCard={handleDeleteGaleria}
         />
         {canShowAddGaleriaModal && (
           <AddGaleriaModal
             mode={modoAtual}
             galeriaToUpdate={galeriaEditar}
+            onUpdateGaleria={(galeria) => setGaleriaEditada(galeria)}
             closeModal={handleCloseModal}
             onCreateGaleria={(galeria) => setGaleryForAdd(galeria)}
-            // onUpdateGaleria={(galeria) => setGaleriaEditar(galeria)}
           />
         )}
       </div>
