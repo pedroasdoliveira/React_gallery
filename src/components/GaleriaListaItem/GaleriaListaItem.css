@@ -21,10 +21,39 @@
     }
 }
 
+.GaleriaListaItem--disable {
+    box-shadow: 0 0 7px #370b97;
+}
+
+.GaleriaListaItem--disable .GaleriaListaItem__badge {
+    display: none;
+}
+
+.GaleriaListaItem--disable .GaleriaListaItem__imagem {
+    filter: grayscale(100%);
+}
+
+.GaleriaListaItem--disable button:disabled {
+    background-color: #808080;
+}
+
+.GaleriaListaItem__tag {
+    background-color: #8b008b !important;
+    color: #f4f5f9 !important;
+    position: absolute;
+    font-size: .6rem;
+    border-radius: 5px;
+    padding: 5px;
+    top: -15px;
+    left: -10px;
+    letter-spacing: 1px;
+}
+
 .GaleriaListaItem > div {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    width: 100%;
 }
 
 .GaleriaListaItem__badge {
@@ -95,6 +124,7 @@
     margin-bottom: 1rem;
     text-align: center;
     line-height: 100%;
+    width: 100%;
 }
 
 .GaleriaListaItem__btns {

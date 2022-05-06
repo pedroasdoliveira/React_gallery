@@ -5,7 +5,7 @@ const parseResponse = (response) => response.json();
 const transformGaleria = (galeria) => {
   return {
     ...galeria,
-    id: galeria._id,
+    _id: galeria._id,
   };
 };
 
@@ -31,8 +31,10 @@ export const GaleriaService = {
       mode: "cors",
       headers: { "Content-Type": "application/json" },
     }).then(parseTransformItem),
-  updateById: (id) =>
-    fetch(Api.updateGaleriaById(id), { method: "PUT" }).then(parseResponse),
+  updateById: (id, galeria) =>
+    fetch(Api.updateGaleriaById(id), { method: "PUT", body: JSON.stringify(galeria), mode: "cors", headers:{
+      "Content-Type": "application/json",
+    } }).then(parseResponse),
   deleteById: (id) =>
     fetch(Api.deleteGaleriaById(id), { method: "DELETE" }).then(parseResponse),
 };

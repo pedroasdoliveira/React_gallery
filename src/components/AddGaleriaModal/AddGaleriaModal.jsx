@@ -2,14 +2,15 @@ import { useState, useEffect } from "react";
 import Modal from "components/Modal/Modal";
 import "./AddGaleriaModal.css";
 import { GaleriaService } from "services/GaleriaService.js";
+import { ActionMode } from "constants/index.js";
 
-const AddGaleriaModal = ({ closeModal, onCreateGaleria }) => {
+const AddGaleriaModal = ({ closeModal, onCreateGaleria, mode, onUpdateGaleria, galeriaToUpdate }) => {
   const form = {
-    titulo: "",
-    tema: "",
-    imagem: "",
-    ano: "",
-    descricao: "",
+    titulo: galeriaToUpdate?.titulo ?? '',
+    tema: galeriaToUpdate?.tema ?? '',
+    imagem: galeriaToUpdate?.imagem ?? '',
+    ano: galeriaToUpdate?.ano ?? '',
+    descricao: galeriaToUpdate?.descricao ?? '',
   };
 
   const [state, setState] = useState(form);
@@ -21,45 +22,69 @@ const AddGaleriaModal = ({ closeModal, onCreateGaleria }) => {
   const [canDisable, setCanDisable] = useState(true);
 
   const canDisableSendButton = () => {
-      const response = !Boolean(
-          state.descricao.length 
-          && state.imagem.length
-          && state.ano.length
-          && state.tema.length
-          && state.titulo.length
-      )
+    const response = !Boolean(
+      state.descricao.length &&
+        state.imagem.length &&
+        String(state.ano).length &&
+        state.tema.length &&
+        state.titulo.length
+    );
 
-      setCanDisable(response)
-  }
+    setCanDisable(response);
+  };
 
   useEffect(() => {
-      canDisableSendButton();
-  })
+    canDisableSendButton();
+  });
 
-  const createGaleria = async () => {
-    const renamePathImages = (imagePath) => imagePath.split('\\').pop();
+  const handleSend = async () => {
+    const renamePathImages = (imagePath) => imagePath.split(/\\|\//).pop();
 
-    const {titulo, tema, imagem, ano, descricao} = state;
+    const { titulo, tema, imagem, ano, descricao } = state;
 
     const galeria = {
+      ...(galeriaToUpdate && {_id: galeriaToUpdate?.id}),
       titulo: titulo,
-      tema, 
-      ano, 
+      tema,
+      ano,
       descricao,
-      imagem: `assets/image/${renamePathImages(imagem)}`
+      imagem: `assets/image/${renamePathImages(imagem)}`,
+    };
+
+    const serviceCall = {
+      [ActionMode.NORMAL]: () => GaleriaService.create(galeria),
+      [ActionMode.ATUALIZAR]: () => GaleriaService.updateById(galeriaToUpdate?.id, galeria),
     }
 
-    const response = await GaleriaService.create(galeria);
-    onCreateGaleria(response);
+    const response = await serviceCall[mode]();
+
+    const actionResponse = {
+      [ActionMode.NORMAL]: () => onCreateGaleria(response),
+      [ActionMode.ATUALIZAR]: () => onUpdateGaleria(response),
+    }
+
+    actionResponse[mode]();
+
+    const reset = {
+      titulo: '',
+      tema: '',
+      imagem: '',
+      ano: '',
+      descricao: '',
+    }
+
+    setState(reset);
+    
     closeModal();
-  }
+    window.location.reload();
+  };
 
   return (
     <>
       <Modal closeModal={closeModal}>
         <div className="AddGaleriaModal">
           <form autoComplete="off">
-            <h2>Adicionar Card</h2>
+            <h2>{ActionMode.ATUALIZAR === mode ? 'Atualizar Card' : 'Adicionar Card'}</h2>
             <div>
               <label className="AddGaleriaModal__text" htmlFor="titulo">
                 Titulo:
@@ -115,7 +140,8 @@ const AddGaleriaModal = ({ closeModal, onCreateGaleria }) => {
             <div>
               <label
                 className="AddGaleriaModal__text Imagem-label"
-                htmlFor="imagem">
+                htmlFor="imagem"
+              >
                 {!state.imagem.length ? "Selecione uma imagem" : state.imagem}
               </label>
               <input
@@ -123,16 +149,17 @@ const AddGaleriaModal = ({ closeModal, onCreateGaleria }) => {
                 id="imagem"
                 type="file"
                 accept="imagem/png, imagem/jpg, imagem/jpeg, imagem/gif, imagem/svg"
-                value={state.imagem}
                 onChange={(e) => handleChange(e, "imagem")}
                 required
               />
             </div>
-            <button className="AddGaleriaModal__enviar" 
-            disabled={canDisable} 
-            type="button"
-            onClick={createGaleria}>
-                Enviar
+            <button
+              className="AddGaleriaModal__enviar"
+              disabled={canDisable}
+              type="button"
+              onClick={handleSend}
+            >
+              {ActionMode.NORMAL === mode ? 'Enviar' : 'Atualizar'}
             </button>
           </form>
         </div>

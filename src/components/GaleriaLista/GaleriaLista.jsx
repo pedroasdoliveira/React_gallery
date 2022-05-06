@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./GaleriaLista.css";
+import { ActionMode } from "constants/index.js";
 import GaleriaListaItem from "../GaleriaListaItem/GaleriaListaItem.jsx";
 import { GaleriaService } from "services/GaleriaService.js";
 import GaleriaDetalhesModal from "components/GaleriaDetalhesModal/GaleriaDetalhesModal";
 
-const GaleriaLista = ({ galeriaCriada }) => {
+const GaleriaLista = ({ galeriaCriada, mode, updateCard, deleteCard }) => {
   const [galerias, setGalerias] = useState([]);
 
   const [galeriaSelecionada, setGaleriaSelecionada] = useState({});
@@ -34,7 +35,13 @@ const GaleriaLista = ({ galeriaCriada }) => {
   const getItem = async (galeriaId) => {
     const response = await GaleriaService.getById(galeriaId);
 
-    setGaleriaModal(response);
+    const mapper = {
+      [ActionMode.NORMAL]: () => setGaleriaModal(response),
+      [ActionMode.ATUALIZAR]: () => updateCard(response),
+      [ActionMode.DELETAR]: () => deleteCard(response),
+    };
+
+    mapper[mode]();
   };
 
   useEffect(() => {
@@ -42,19 +49,26 @@ const GaleriaLista = ({ galeriaCriada }) => {
   }, []);
 
   //-------------------------------------- Adicionar galeria ---------------------------------
-  const addGaleriaNaLista = (galeria) => {
-    const lista = [...galerias, galeria];
-    setGaleriaModal(lista);
-  };
+  const addGaleriaNaLista = useCallback(
+    (galeria) => {
+      const lista = [...galerias, galeria];
+      setGalerias(lista);
+    },
+    [galerias]
+  );
 
   useEffect(() => {
-    if (galeriaCriada) addGaleriaNaLista(galeriaCriada);
-  }, [galeriaCriada]);
+    if (galeriaCriada && !galerias.map(({id}) => id).includes(galeriaCriada.id)
+    ) {
+      addGaleriaNaLista(galeriaCriada);
+    }
+  }, [addGaleriaNaLista, galeriaCriada, galerias]);
 
   return (
     <div className="GaleriaLista">
       {galerias.map((galeria, index) => (
         <GaleriaListaItem
+          mode={mode}
           key={`GaleriaListaItem-${index}`}
           galeria={galeria}
           quantidadeSelecionada={galeriaSelecionada[index]}

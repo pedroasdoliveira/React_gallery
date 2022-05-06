@@ -6,7 +6,7 @@ import Navbar from "components/Navbar/Navbar.jsx";
 import AddGaleriaModal from "components/AddGaleriaModal/AddGaleriaModal.jsx";
 import Footer from "components/Footer/Footer.jsx";
 
-const Home = ({ galeriaCriada }) => {
+const Home = () => {
   const [canShowAddGaleriaModal, setCanShowAddGaleriaModal] = useState(false);
 
   const [galeryForAdd, setGaleryForAdd] = useState();
@@ -18,6 +18,25 @@ const Home = ({ galeriaCriada }) => {
     setModoAtual(novaAcao);
   };
 
+  const [galeriaEditar, setGaleriaEditar] = useState();
+  const [galeriaDeletar, setGaleriaDeletar] = useState();
+
+  const handleUpdateGaleria = (galeriaToUpdate) => {
+    setGaleriaEditar(galeriaToUpdate);
+    setCanShowAddGaleriaModal(true);
+  }
+
+  const handleDeleteGaleria = (galeriaToDelete) => {
+    setGaleriaDeletar(galeriaToDelete);
+  }
+
+  const handleCloseModal = () => {
+    setCanShowAddGaleriaModal(false);
+    setGaleryForAdd();
+    setGaleriaEditar();
+    setGaleriaDeletar();
+  }
+
   return (
     <div className="Home">
       <Navbar
@@ -27,11 +46,19 @@ const Home = ({ galeriaCriada }) => {
       />
       {/* Navbar */}
       <div className="Home__container">
-        <GaleriaLista galeriaCriada={galeriaCriada} />
+        <GaleriaLista 
+        mode={modoAtual}
+        galeriaCriada={galeryForAdd}
+        updateCard={handleUpdateGaleria}
+        deleteCard={handleDeleteGaleria}
+        />
         {canShowAddGaleriaModal && (
           <AddGaleriaModal
-            closeModal={() => setCanShowAddGaleriaModal(false)}
+            mode={modoAtual}
+            galeriaToUpdate={galeriaEditar}
+            closeModal={handleCloseModal}
             onCreateGaleria={(galeria) => setGaleryForAdd(galeria)}
+            // onUpdateGaleria={(galeria) => setGaleriaEditar(galeria)}
           />
         )}
       </div>
