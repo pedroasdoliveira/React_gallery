@@ -60,7 +60,7 @@ const AddGaleriaModal = ({
     const serviceCall = {
       [ActionMode.NORMAL]: () => GaleriaService.create(galeria),
       [ActionMode.ATUALIZAR]: () =>
-        GaleriaService.updateById(galeriaToUpdate?.id, galeria),
+        GaleriaService.updateById(galeriaToUpdate?._id, galeria),
     };
 
     const response = await serviceCall[mode]();

@@ -3,8 +3,9 @@ import { ActionMode } from "constants/index.js";
 import icon from "../../assets/icons/galery-icon.svg";
 import { GrAdd } from "react-icons/gr";
 import { RiImageEditLine } from "react-icons/ri";
+import {FcRemoveImage} from 'react-icons/fc';
 
-const Navbar = ({ createCard, updateCard, mode }) => {
+const Navbar = ({ createCard, updateCard, mode, deleteCard }) => {
   return (
     <header className="Header">
       <div className="Header__row">
@@ -22,6 +23,16 @@ const Navbar = ({ createCard, updateCard, mode }) => {
             <RiImageEditLine />
           </button>
           {/* button update */}
+          <button
+            type="button"
+            className={`Delete Galery ${
+              mode === ActionMode.DELETAR && 'Card-Ativo'
+            }`}
+            onClick={() => deleteCard()}
+            >
+              <FcRemoveImage />
+          </button>
+          {/* button delete */}
           <button
             className="Create Galery"
             type="button"

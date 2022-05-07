@@ -37,6 +37,14 @@
     background-color: #808080;
 }
 
+.GaleriaListaItem--deletar {
+    box-shadow: 0 0 7px #1f1438;
+}
+
+.GaleriaListaItem__tag--deletar {
+    background-color: #561867 !important;
+}
+
 .GaleriaListaItem__tag {
     background-color: #8b008b !important;
     color: #f4f5f9 !important;

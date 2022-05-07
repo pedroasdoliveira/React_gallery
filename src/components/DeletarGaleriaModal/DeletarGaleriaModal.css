@@ -1,0 +1,41 @@
+.DeleteGaleriaModal {
+  margin-top: -20px;
+}
+
+.DeleteGaleriaModal > div {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.DeleteGaleriaModal__imagem {
+  width: 80%;
+  height: auto;
+  margin: 0 auto;
+  border: 5px solid #010024;
+  box-shadow: 5px 5px 10px 5px #0000009d;
+  border-radius: 15px;
+}
+
+.DeleteGaleriaModal__confirmar,
+.DeleteGaleriaModal__cancelar {
+  border: none;
+  border-radius: 5px;
+  font-family: "Exo", sans-serif;
+  padding: 5px;
+  max-width: 280px;
+  text-align: center;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  width: 48%;
+  color: white;
+}
+
+.DeleteGaleriaModal__confirmar {
+  background-color: darkviolet;
+}
+
+.DeleteGaleriaModal__cancelar {
+  background-color: red;
+}

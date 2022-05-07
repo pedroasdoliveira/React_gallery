@@ -5,7 +5,7 @@ import GaleriaListaItem from "../GaleriaListaItem/GaleriaListaItem.jsx";
 import { GaleriaService } from "services/GaleriaService.js";
 import GaleriaDetalhesModal from "components/GaleriaDetalhesModal/GaleriaDetalhesModal";
 
-const GaleriaLista = ({ galeriaCriada, mode, updateCard, deleteCard, galeriaEditada }) => {
+const GaleriaLista = ({ galeriaCriada, mode, updateCard, deleteCard, galeriaEditada, galeriaRemovida }) => {
   const [galerias, setGalerias] = useState([]);
 
   const [galeriaSelecionada, setGaleriaSelecionada] = useState({});
@@ -33,6 +33,7 @@ const GaleriaLista = ({ galeriaCriada, mode, updateCard, deleteCard, galeriaEdit
   };
 
   const getItem = async (galeriaId) => {
+    console.log(galeriaId)
     const response = await GaleriaService.getById(galeriaId);
 
     const mapper = {
@@ -46,7 +47,7 @@ const GaleriaLista = ({ galeriaCriada, mode, updateCard, deleteCard, galeriaEdit
 
   useEffect(() => {
     getLista();
-  }, [galeriaEditada]);
+  }, [galeriaEditada, galeriaRemovida]);
 
   //-------------------------------------- Adicionar galeria ---------------------------------
   const addGaleriaNaLista = useCallback(

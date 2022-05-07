@@ -36,12 +36,15 @@ const GaleriaListaItem = ({
   };
 
   const badgeAction = (canRender) => {
-    if (canRender) return (<span className="GaleriaListaItem__tag">{mode}</span>);
+    if (canRender) return (<span 
+      className={`GaleriaListaItem__tag ${mode === ActionMode.DELETAR && 'GaleriaListaItem__tag--deletar'}`}>{mode}</span>);
   }
 
   return (
-    <div className={`GaleriaListaItem ${mode !== ActionMode.NORMAL && 'GaleriaListaItem--disable'}`} 
-      onClick={() => clickItem(galeria.id)}>
+    <div className={`GaleriaListaItem 
+    ${mode !== ActionMode.NORMAL && 'GaleriaListaItem--disable'}
+    ${mode === ActionMode.DELETAR && 'GaleriaListaItem--deletar'}`} 
+      onClick={() => clickItem(galeria._id)}>
       {badgeCounter(quantidadeSelecionada, index)}
       {badgeAction(mode !== ActionMode.NORMAL)}
       <div>

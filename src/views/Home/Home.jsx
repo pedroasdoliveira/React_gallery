@@ -4,6 +4,7 @@ import GaleriaLista from "../../components/GaleriaLista/GaleriaLista.jsx";
 import "./Home.css";
 import Navbar from "components/Navbar/Navbar.jsx";
 import AddGaleriaModal from "components/AddGaleriaModal/AddGaleriaModal.jsx";
+import DeletarGaleriaModal from "components/DeletarGaleriaModal/DeletarGaleriaModal.jsx";
 import Footer from "components/Footer/Footer.jsx";
 
 const Home = () => {
@@ -22,6 +23,7 @@ const Home = () => {
   const [galeriaDeletar, setGaleriaDeletar] = useState();
 
   const [galeriaEditada, setGaleriaEditada] = useState();
+  const [galeriaRemovida, setGaleriaRemovida] = useState();
 
   const handleUpdateGaleria = (galeriaToUpdate) => {
     setGaleriaEditar(galeriaToUpdate);
@@ -46,6 +48,7 @@ const Home = () => {
         mode={modoAtual}
         createCard={() => setCanShowAddGaleriaModal(true)}
         updateCard={() => handleActions(ActionMode.ATUALIZAR)}
+        deleteCard={() => handleActions(ActionMode.DELETAR)}
       />
       {/* Navbar */}
       <div className="Home__container">
@@ -53,6 +56,7 @@ const Home = () => {
           mode={modoAtual}
           galeriaCriada={galeryForAdd}
           galeriaEditada={galeriaEditada}
+          galeriaRemovida={galeriaRemovida}
           updateCard={handleUpdateGaleria}
           deleteCard={handleDeleteGaleria}
         />
@@ -65,6 +69,14 @@ const Home = () => {
             onCreateGaleria={(galeria) => setGaleryForAdd(galeria)}
           />
         )}
+        {
+          galeriaDeletar &&
+          <DeletarGaleriaModal
+          galeriaToDelete={galeriaDeletar}
+          closeModal={handleCloseModal}
+          onDeleteGaleria={(galeria) => setGaleriaRemovida(galeria)}
+          />
+        }
       </div>
       {/* GaleriaLista */}
       <div className="Home__footer">
