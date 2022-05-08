@@ -6,9 +6,11 @@ import { GaleriaService } from "services/GaleriaService.js";
 import GaleriaDetalhesModal from "components/GaleriaDetalhesModal/GaleriaDetalhesModal";
 
 const GaleriaLista = ({ galeriaCriada, mode, updateCard, deleteCard, galeriaEditada, galeriaRemovida }) => {
+  const selecionadas = JSON.parse(localStorage.getItem('selecionada')) ?? {};
+
   const [galerias, setGalerias] = useState([]);
 
-  const [galeriaSelecionada, setGaleriaSelecionada] = useState({});
+  const [galeriaSelecionada, setGaleriaSelecionada] = useState(selecionadas);
 
   const [galeriaModal, setGaleriaModal] = useState(false);
 
@@ -18,6 +20,19 @@ const GaleriaLista = ({ galeriaCriada, mode, updateCard, deleteCard, galeriaEdit
     };
     setGaleriaSelecionada({ ...galeriaSelecionada, ...galeria });
   };
+
+  const setSelecionadas = useCallback(() => {
+    if (!galerias.length) return
+
+    const entries = Object.entries(galeriaSelecionada);
+    const sacola = entries.map(arr => ({
+      galeriaId: galerias[arr[0]]._id,
+      quantidade: arr[1]
+    }))
+
+    localStorage.setItem('sacola', JSON.stringify(sacola))
+    localStorage.setItem('selecionadas', JSON.stringify(galeriaSelecionada))
+  }, [galeriaSelecionada, galerias])
 
   const removerItem = (galeriaIndex) => {
     const galeria = {
@@ -57,6 +72,10 @@ const GaleriaLista = ({ galeriaCriada, mode, updateCard, deleteCard, galeriaEdit
     },
     [galerias]
   );
+
+  useEffect(() => {
+    setSelecionadas();
+  }, [setSelecionadas, galeriaSelecionada])
 
   useEffect(() => {
     if (

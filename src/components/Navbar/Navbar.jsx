@@ -5,7 +5,7 @@ import { GrAdd } from "react-icons/gr";
 import { RiImageEditLine } from "react-icons/ri";
 import {FcRemoveImage} from 'react-icons/fc';
 
-const Navbar = ({ createCard, updateCard, mode, deleteCard }) => {
+const Navbar = ({ createCard, updateCard, mode, deleteCard, openBag }) => {
   return (
     <header className="Header">
       <div className="Header__row">
@@ -41,7 +41,7 @@ const Navbar = ({ createCard, updateCard, mode, deleteCard }) => {
             <GrAdd />
           </button>
           {/* button create */}
-          <div className="Images">
+          <div className="Images" onClick={openBag}>
             <img className="Images__icon" src={icon} alt="Icone de galerias" />
           </div>
         </div>

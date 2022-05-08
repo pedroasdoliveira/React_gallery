@@ -5,9 +5,13 @@ import "./Home.css";
 import Navbar from "components/Navbar/Navbar.jsx";
 import AddGaleriaModal from "components/AddGaleriaModal/AddGaleriaModal.jsx";
 import DeletarGaleriaModal from "components/DeletarGaleriaModal/DeletarGaleriaModal.jsx";
+import SacolaModal from "components/SacolaModal/SacolaModal.jsx";
+import { SacolaService } from "services/SacolaService.js";
 import Footer from "components/Footer/Footer.jsx";
 
 const Home = () => {
+  const [canOpenBag, setCanOpenBag] = useState();
+
   const [canShowAddGaleriaModal, setCanShowAddGaleriaModal] = useState(false);
 
   const [galeryForAdd, setGaleryForAdd] = useState();
@@ -34,6 +38,15 @@ const Home = () => {
     setGaleriaDeletar(galeriaToDelete);
   };
 
+  const abrirSacola = async () => {
+    const lista = JSON.parse(localStorage.getItem('sacola'));
+    const sacola = lista.filter(i => i.quantidade > 0);
+
+    await SacolaService.create(sacola);
+
+    setCanOpenBag(true)
+  }
+
   const handleCloseModal = () => {
     setCanShowAddGaleriaModal(false);
     setGaleryForAdd();
@@ -49,6 +62,7 @@ const Home = () => {
         createCard={() => setCanShowAddGaleriaModal(true)}
         updateCard={() => handleActions(ActionMode.ATUALIZAR)}
         deleteCard={() => handleActions(ActionMode.DELETAR)}
+        openBag={abrirSacola}
       />
       {/* Navbar */}
       <div className="Home__container">
@@ -76,6 +90,10 @@ const Home = () => {
           closeModal={handleCloseModal}
           onDeleteGaleria={(galeria) => setGaleriaRemovida(galeria)}
           />
+        }
+        {
+          canOpenBag &&
+          <SacolaModal closeModal={() => setCanOpenBag(false)} />
         }
       </div>
       {/* GaleriaLista */}

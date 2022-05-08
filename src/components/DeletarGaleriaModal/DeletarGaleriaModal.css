@@ -1,15 +1,21 @@
 .DeleteGaleriaModal {
-  margin-top: -20px;
+  background-color: #b2b1ba40;
+  border-radius: 15px;
+  padding: 0.8rem;
+  box-sizing: border-box;
+  width: 500px;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
 .DeleteGaleriaModal > div {
   display: flex;
-  justify-content: space-between;
-  position: relative;
 }
 
 .DeleteGaleriaModal__imagem {
-  width: 80%;
+  width: 90%;
   height: auto;
   margin: 0 auto;
   border: 5px solid #010024;
