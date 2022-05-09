@@ -1,29 +1,29 @@
-import {useEffect} from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Loading.css'
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Loading.css";
 
 const Loading = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        localStorage.setItem("sacola", "[]");
-        localStorage.setItem("selecionadas", "{}");
+  useEffect(() => {
+    localStorage.setItem("sacola", "[]");
+    localStorage.setItem("selecionadas", "{}");
 
-        setTimeout(() => {
-            navigate("/");
-        }, 3000);
-    })
+    setTimeout(() => {
+      navigate("/");
+    }, 3000);
+  });
 
   return (
-    <div className='Loading'>
-        <div className='lds-ring'>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
+    <div className="Loading">
+      <div className="lds-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Loading
+export default Loading;

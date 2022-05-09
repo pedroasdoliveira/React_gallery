@@ -13,7 +13,7 @@ const SacolaModal = ({ closeModal }) => {
   const purchase = async () => {
     await SacolaService.purchase();
 
-    navigate('/loading')
+    navigate("/loading");
   };
 
   const handleClose = async () => {

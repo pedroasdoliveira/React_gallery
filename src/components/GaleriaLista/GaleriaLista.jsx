@@ -106,10 +106,11 @@ const GaleriaLista = ({
 
   return (
     <div className="GaleriaLista-Wrapper">
-      <input 
+      <input
         className="GaleriaLista-filtro"
         onChange={filtroPorTitulo}
-        placeholder="Digite o título do Card que será pesquisado" />
+        placeholder="Digite o título do Card que será pesquisado"
+      />
 
       <div className="GaleriaLista">
         {galeriasFiltradas.map((galeria, index) => (

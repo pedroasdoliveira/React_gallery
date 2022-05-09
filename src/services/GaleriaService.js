@@ -32,9 +32,14 @@ export const GaleriaService = {
       headers: { "Content-Type": "application/json" },
     }).then(parseResponse),
   updateById: (id, galeria) =>
-    fetch(Api.updateGaleriaById(id), { method: "PUT", body: JSON.stringify(galeria), mode: "cors", headers:{
-      "Content-Type": "application/json",
-    } }).then(parseResponse),
+    fetch(Api.updateGaleriaById(id), {
+      method: "PUT",
+      body: JSON.stringify(galeria),
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(parseResponse),
   deleteById: (id) =>
     fetch(Api.deleteGaleriaById(id), { method: "DELETE" }).then(parseResponse),
 };

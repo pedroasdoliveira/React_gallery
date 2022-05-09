@@ -39,13 +39,13 @@ const Home = () => {
   };
 
   const abrirSacola = async () => {
-    const lista = JSON.parse(localStorage.getItem('sacola'));
-    const sacola = lista.filter(i => i.quantidade > 0);
+    const lista = JSON.parse(localStorage.getItem("sacola"));
+    const sacola = lista.filter((i) => i.quantidade > 0);
 
     await SacolaService.create(sacola);
 
-    setCanOpenBag(true)
-  }
+    setCanOpenBag(true);
+  };
 
   const handleCloseModal = () => {
     setCanShowAddGaleriaModal(false);
@@ -83,18 +83,14 @@ const Home = () => {
             onCreateGaleria={(galeria) => setGaleryForAdd(galeria)}
           />
         )}
-        {
-          galeriaDeletar &&
+        {galeriaDeletar && (
           <DeletarGaleriaModal
-          galeriaToDelete={galeriaDeletar}
-          closeModal={handleCloseModal}
-          onDeleteGaleria={(galeria) => setGaleriaRemovida(galeria)}
+            galeriaToDelete={galeriaDeletar}
+            closeModal={handleCloseModal}
+            onDeleteGaleria={(galeria) => setGaleriaRemovida(galeria)}
           />
-        }
-        {
-          canOpenBag &&
-          <SacolaModal closeModal={() => setCanOpenBag(false)} />
-        }
+        )}
+        {canOpenBag && <SacolaModal closeModal={() => setCanOpenBag(false)} />}
       </div>
       {/* GaleriaLista */}
       <div className="Home__footer">
