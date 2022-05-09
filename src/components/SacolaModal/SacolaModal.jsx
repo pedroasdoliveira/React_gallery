@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./SacolaModal.css";
 import Modal from "components/Modal/Modal";
 import { SacolaService } from "services/SacolaService.js";
 import { GaleriaService } from "services/GaleriaService";
 
 const SacolaModal = ({ closeModal }) => {
+  const navigate = useNavigate();
+
   const [lista, setLista] = useState([]);
 
   const purchase = async () => {
     await SacolaService.purchase();
+
+    navigate('/loading')
   };
 
   const handleClose = async () => {
