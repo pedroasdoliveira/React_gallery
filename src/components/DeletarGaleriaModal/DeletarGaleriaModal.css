@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap');
+
 .DeleteGaleriaModal {
   background-color: #b2b1ba40;
   border-radius: 15px;
@@ -10,38 +12,68 @@
   flex-direction: column;
 }
 
-.DeleteGaleriaModal > div {
+.DeleteGaleriaModal__item {
   display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin: .5rem auto;
 }
 
-.DeleteGaleriaModal__imagem {
+.DeleteGaleriaModal__item h2 {
+  font-size: 2rem;
+  margin-bottom: .5rem;
+  font-family: 'Cutive Mono';
+}
+
+.DeleteGaleriaModal__item .DeletarGaleriaModal__imagem {
   width: 90%;
   height: auto;
   margin: 0 auto;
-  border: 5px solid #010024;
+  border: 3px solid #010024;
   box-shadow: 5px 5px 10px 5px #0000009d;
   border-radius: 15px;
+  margin: 1rem;
 }
 
-.DeleteGaleriaModal__confirmar,
-.DeleteGaleriaModal__cancelar {
-  border: none;
-  border-radius: 5px;
+.DeleteGaleriaModal__btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.DeletarGaleriaModal__confirmar,
+.DeletarGaleriaModal__cancelar {
+  border: 3px solid transparent;
+  border-radius: 15px;
   font-family: "Exo", sans-serif;
   padding: 5px;
-  max-width: 280px;
+  margin: auto 1rem;
   text-align: center;
-  font-weight: 700;
+  font-weight: bold;
   text-transform: uppercase;
   cursor: pointer;
-  width: 48%;
-  color: white;
+  width: 35%;
+  transition: all .6s ease-in-out;
 }
 
-.DeleteGaleriaModal__confirmar {
-  background-color: darkviolet;
+.DeletarGaleriaModal__confirmar {
+  background-color: transparent;
+  color: #2424e0;
 }
 
-.DeleteGaleriaModal__cancelar {
-  background-color: red;
+.DeletarGaleriaModal__confirmar:hover {
+  border: 3px solid #2424e0;
+  transform: scale(1.2);
+}
+
+.DeletarGaleriaModal__cancelar {
+  background-color: transparent;
+  color: #4a1071;
+}
+
+.DeletarGaleriaModal__cancelar:hover {
+  border: 3px solid #4a1071;
+  transform: scale(1.2);
 }

@@ -16,29 +16,35 @@ const DeletarGaleriaModal = ({
   return (
     <Modal closeModal={closeModal}>
       <div className="DeleteGaleriaModal">
-        <h2>Confirmação</h2>
-        <p>
-          Você deseja remover o Card <b>{galeriaToDelete.titulo}</b> da galeria?
-        </p>
-        <img
-          className="DeletarGaleriaModal__imagem"
-          src={galeriaToDelete.imagem}
-          alt={galeriaToDelete.titulo}
-        />
-      </div>
-      <br />
-      <div>
-        <button
-          onClick={() => handleDelete(galeriaToDelete)}
-          className="DeletarGaleriaModal__confirmar"
-        >
-          {""}
-          Confirmar{""}
-        </button>
-        <button onClick={closeModal} className="DeletarGaleriaModal__cancelar">
-          {""}
-          Cancelar{""}
-        </button>
+        <div className="DeleteGaleriaModal__item">
+          <h2>Confirmação</h2>
+          <p>
+            Você deseja remover o Card <b>{galeriaToDelete.titulo}</b> da
+            galeria?
+          </p>
+          <img
+            className="DeletarGaleriaModal__imagem"
+            src={galeriaToDelete.imagem}
+            alt={galeriaToDelete.titulo}
+          />
+        </div>
+        <br />
+        <div className="DeleteGaleriaModal__btns">
+          <button
+            onClick={() => handleDelete(galeriaToDelete)}
+            className="DeletarGaleriaModal__confirmar"
+          >
+            {""}
+            Confirmar{""}
+          </button>
+          <button
+            onClick={closeModal}
+            className="DeletarGaleriaModal__cancelar"
+          >
+            {""}
+            Cancelar{""}
+          </button>
+        </div>
       </div>
     </Modal>
   );
