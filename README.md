@@ -10,7 +10,7 @@
 
 <h2>Deploy do Projeto</h2>
 
-<p>Netlify: https://galleries-card-images.netlify.app</p>
+<p><a href="https://galleries-card-images.netlify.app" target="_blank">Netlify</a></p>
 
 <h2>Comandos de execução</h2>
 
