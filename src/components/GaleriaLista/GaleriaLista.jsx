@@ -4,11 +4,21 @@ import { ActionMode } from "constants/index.js";
 import GaleriaListaItem from "../GaleriaListaItem/GaleriaListaItem.jsx";
 import { GaleriaService } from "services/GaleriaService.js";
 import GaleriaDetalhesModal from "components/GaleriaDetalhesModal/GaleriaDetalhesModal";
+import { matchByText } from "helpers/Utils.js";
 
-const GaleriaLista = ({ galeriaCriada, mode, updateCard, deleteCard, galeriaEditada, galeriaRemovida }) => {
-  const selecionadas = JSON.parse(localStorage.getItem('selecionada')) ?? {};
+const GaleriaLista = ({
+  galeriaCriada,
+  mode,
+  updateCard,
+  deleteCard,
+  galeriaEditada,
+  galeriaRemovida,
+}) => {
+  const selecionadas = JSON.parse(localStorage.getItem("selecionada")) ?? {};
 
   const [galerias, setGalerias] = useState([]);
+
+  const [galeriasFiltradas, setGaleriasFiltradas] = useState([]);
 
   const [galeriaSelecionada, setGaleriaSelecionada] = useState(selecionadas);
 
@@ -22,17 +32,17 @@ const GaleriaLista = ({ galeriaCriada, mode, updateCard, deleteCard, galeriaEdit
   };
 
   const setSelecionadas = useCallback(() => {
-    if (!galerias.length) return
+    if (!galerias.length) return;
 
     const entries = Object.entries(galeriaSelecionada);
-    const sacola = entries.map(arr => ({
+    const sacola = entries.map((arr) => ({
       galeriaId: galerias[arr[0]]._id,
-      quantidade: arr[1]
-    }))
+      quantidade: arr[1],
+    }));
 
-    localStorage.setItem('sacola', JSON.stringify(sacola))
-    localStorage.setItem('selecionadas', JSON.stringify(galeriaSelecionada))
-  }, [galeriaSelecionada, galerias])
+    localStorage.setItem("sacola", JSON.stringify(sacola));
+    localStorage.setItem("selecionadas", JSON.stringify(galeriaSelecionada));
+  }, [galeriaSelecionada, galerias]);
 
   const removerItem = (galeriaIndex) => {
     const galeria = {
@@ -48,7 +58,7 @@ const GaleriaLista = ({ galeriaCriada, mode, updateCard, deleteCard, galeriaEdit
   };
 
   const getItem = async (galeriaId) => {
-    console.log(galeriaId)
+    console.log(galeriaId);
     const response = await GaleriaService.getById(galeriaId);
 
     const mapper = {
@@ -58,6 +68,13 @@ const GaleriaLista = ({ galeriaCriada, mode, updateCard, deleteCard, galeriaEdit
     };
 
     mapper[mode]();
+  };
+
+  const filtroPorTitulo = ({ target }) => {
+    const lista = [...galerias].filter(({ titulo }) =>
+      matchByText(titulo, target.value)
+    );
+    setGaleriasFiltradas(lista);
   };
 
   useEffect(() => {
@@ -75,7 +92,7 @@ const GaleriaLista = ({ galeriaCriada, mode, updateCard, deleteCard, galeriaEdit
 
   useEffect(() => {
     setSelecionadas();
-  }, [setSelecionadas, galeriaSelecionada])
+  }, [setSelecionadas, galeriaSelecionada]);
 
   useEffect(() => {
     if (
@@ -84,28 +101,36 @@ const GaleriaLista = ({ galeriaCriada, mode, updateCard, deleteCard, galeriaEdit
     ) {
       addGaleriaNaLista(galeriaCriada);
     }
+    setGaleriasFiltradas(galerias);
   }, [addGaleriaNaLista, galeriaCriada, galerias]);
 
   return (
-    <div className="GaleriaLista">
-      {galerias.map((galeria, index) => (
-        <GaleriaListaItem
-          mode={mode}
-          key={`GaleriaListaItem-${index}`}
-          galeria={galeria}
-          quantidadeSelecionada={galeriaSelecionada[index]}
-          index={index}
-          onAdd={(index) => adicionarItem(index)}
-          onRemove={(index) => removerItem(index)}
-          clickItem={(galeriaId) => getItem(galeriaId)}
-        />
-      ))}
-      {galeriaModal && (
-        <GaleriaDetalhesModal
-          galeria={galeriaModal}
-          closeModal={() => setGaleriaModal(false)}
-        />
-      )}
+    <div className="GaleriaLista-Wrapper">
+      <input 
+        className="GaleriaLista-filtro"
+        onChange={filtroPorTitulo}
+        placeholder="Digite o título do Card que será pesquisado" />
+
+      <div className="GaleriaLista">
+        {galeriasFiltradas.map((galeria, index) => (
+          <GaleriaListaItem
+            mode={mode}
+            key={`GaleriaListaItem-${index}`}
+            galeria={galeria}
+            quantidadeSelecionada={galeriaSelecionada[index]}
+            index={index}
+            onAdd={(index) => adicionarItem(index)}
+            onRemove={(index) => removerItem(index)}
+            clickItem={(galeriaId) => getItem(galeriaId)}
+          />
+        ))}
+        {galeriaModal && (
+          <GaleriaDetalhesModal
+            galeria={galeriaModal}
+            closeModal={() => setGaleriaModal(false)}
+          />
+        )}
+      </div>
     </div>
   );
 };
